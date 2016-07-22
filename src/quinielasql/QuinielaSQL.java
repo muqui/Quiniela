@@ -5,6 +5,9 @@
  */
 package quinielasql;
 
+import controlador.ControladorPrincipal;
+import vista.VistaPrincipal;
+
 /**
  *
  * @author mq12
@@ -15,7 +18,18 @@ public class QuinielaSQL {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       //Modelo
+        
+        //Vista
+        VistaPrincipal Vistaprincipal = new VistaPrincipal();
+        
+        
+        //controlador
+        ControladorPrincipal controladorPrincopal = new ControladorPrincipal(Vistaprincipal); 
+//        ControladorCapturarResult ControladorJugar  = new ControladorCapturarResult(principal);
+//        ControladorGanadores controladorGanadores = new ControladorGanadores(principal);
+        //Metodos
+        controladorPrincopal.iniciar();
     }
     
 }
