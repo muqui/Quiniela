@@ -5,6 +5,7 @@
  */
 package quinielasql;
 
+import controlador.ControladorCrearQuiniela;
 import controlador.ControladorPrincipal;
 import vista.VistaPrincipal;
 
@@ -26,6 +27,7 @@ public class QuinielaSQL {
         
         //controlador
         ControladorPrincipal controladorPrincopal = new ControladorPrincipal(Vistaprincipal); 
+        ControladorCrearQuiniela controladorCrearQuiniela = new ControladorCrearQuiniela(Vistaprincipal);
 //        ControladorCapturarResult ControladorJugar  = new ControladorCapturarResult(principal);
 //        ControladorGanadores controladorGanadores = new ControladorGanadores(principal);
         //Metodos
