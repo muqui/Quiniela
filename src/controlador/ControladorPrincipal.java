@@ -34,7 +34,7 @@ public class ControladorPrincipal implements ActionListener {
         
         this.vistaPrincipal = principal;
         principal.jButtonAdd.addActionListener(this);
-        principal.jButtonCreate.addActionListener(this);
+        principal.jButtonGuardar.addActionListener(this);
        
         modelTableQuiniela = new DefaultTableModel() {
 

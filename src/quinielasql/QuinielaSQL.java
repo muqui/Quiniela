@@ -7,6 +7,7 @@ package quinielasql;
 
 import controlador.ControladorCrearQuiniela;
 import controlador.ControladorPrincipal;
+
 import vista.VistaPrincipal;
 
 /**
@@ -23,7 +24,8 @@ public class QuinielaSQL {
         
         //Vista
         VistaPrincipal Vistaprincipal = new VistaPrincipal();
-        
+      
+                
         
         //controlador
         ControladorPrincipal controladorPrincopal = new ControladorPrincipal(Vistaprincipal); 

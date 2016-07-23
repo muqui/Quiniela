@@ -55,6 +55,7 @@ catch (Exception e)
     private void initComponents() {
 
         buttonGroupJugaroResultados = new javax.swing.ButtonGroup();
+        jFileChooserGuardar = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -64,7 +65,7 @@ catch (Exception e)
         jLabel3 = new javax.swing.JLabel();
         txtVisitante = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
-        jButtonCreate = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtNombreQuiniela = new javax.swing.JTextField();
         jDateChooserFecga = new com.toedter.calendar.JDateChooser();
@@ -85,6 +86,8 @@ catch (Exception e)
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
+        jFileChooserGuardar.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -104,7 +107,7 @@ catch (Exception e)
 
         jButtonAdd.setText("Agregar");
 
-        jButtonCreate.setText("Crear");
+        jButtonGuardar.setText("Guardar");
 
         jLabel4.setText("Nombre");
 
@@ -160,7 +163,7 @@ catch (Exception e)
                 .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(246, 246, 246))
         );
         jPanel5Layout.setVerticalGroup(
@@ -187,7 +190,7 @@ catch (Exception e)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
 
@@ -308,7 +311,7 @@ catch (Exception e)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         pack();
@@ -375,13 +378,14 @@ catch (Exception e)
     private javax.swing.ButtonGroup buttonGroupJugaroResultados;
     public javax.swing.JButton jButtonAdd;
     public javax.swing.JButton jButtonCalcGanadores;
-    public javax.swing.JButton jButtonCreate;
     public javax.swing.JButton jButtonEstablecerPrinc;
+    public javax.swing.JButton jButtonGuardar;
     public javax.swing.JButton jButtonJugar;
     public javax.swing.JComboBox<String> jComboBoxHora;
     public javax.swing.JComboBox<String> jComboBoxMinitos;
     public javax.swing.JComboBox jComboBoxQuinielas;
     public com.toedter.calendar.JDateChooser jDateChooserFecga;
+    public javax.swing.JFileChooser jFileChooserGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
