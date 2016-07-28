@@ -6,6 +6,8 @@
 package controlador;
 
 import Dao.ConexionDao;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,6 +17,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import vista.JPanelCrearQuiniela;
+import vista.VistaP;
 import vista.VistaPrincipal;
 
 /**
@@ -23,51 +27,76 @@ import vista.VistaPrincipal;
  */
 public class ControladorCrearQuiniela implements ActionListener {
 
-    private VistaPrincipal vistaPrincipal;
-    private ConexionDao conexionDao;
-    DefaultTableModel modelTableQuiniela;
+    VistaP vistaPrincipal;
+    JPanelCrearQuiniela jpanelCrearQuiniela;
+    JPanelCrearQuiniela j;
 
-    public ControladorCrearQuiniela(VistaPrincipal vistaprincipal) {
-
-        this.vistaPrincipal = vistaprincipal;
-        vistaprincipal.jButtonAdd.addActionListener(this);
-        vistaprincipal.jButtonGuardar.addActionListener(this);
-        modelTableQuiniela = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-        String[] columnNames = {"Local", "Visitante"};
-        modelTableQuiniela.setColumnIdentifiers(columnNames);
-
+    public ControladorCrearQuiniela(VistaP vistaPrincipal, JPanelCrearQuiniela jpanelCrearQuiniela) {
+        this.vistaPrincipal = vistaPrincipal;
+        this.jpanelCrearQuiniela = jpanelCrearQuiniela;
+        vistaPrincipal.jMenuItemCrearQuiniela.addActionListener(this);
+       
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vistaPrincipal.jButtonAdd) {
-            add();
-        }
-        if (e.getSource() == vistaPrincipal.jButtonGuardar) {
-
-            int userSelection = vistaPrincipal.jFileChooserGuardar.showSaveDialog(vistaPrincipal);
-            if (userSelection == vistaPrincipal.jFileChooserGuardar.APPROVE_OPTION) {
-                File fileToSave = vistaPrincipal.jFileChooserGuardar.getSelectedFile();
-                System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
-                String db =  fileToSave.getAbsolutePath()+".sqlite";
-                conexionDao = new ConexionDao(db);
-               
-            }
-
+        if (e.getSource() == vistaPrincipal.jMenuItemCrearQuiniela) {
+            System.out.println("Crear Quiniela");
+           Container c = vistaPrincipal.getContentPane();
+           c.removeAll();
+            c.add(jpanelCrearQuiniela);
+           jpanelCrearQuiniela.setBounds(5, 5, 500, 500);
+           jpanelCrearQuiniela.setVisible(true);
+           c.repaint();
+//            add();
         }
     }
 
-    private void add() {
-        modelTableQuiniela.addRow(new Object[]{vistaPrincipal.txtLocal.getText().trim(), vistaPrincipal.txtVisitante.getText().trim()});
-        vistaPrincipal.jTableEquipos.setModel(modelTableQuiniela);
-        vistaPrincipal.txtLocal.setText("");
-        vistaPrincipal.txtVisitante.setText("");
-    }
+//    private VistaPrincipal vistaPrincipal;
+//    private ConexionDao conexionDao;
+//    DefaultTableModel modelTableQuiniela;
+//
+//    public ControladorCrearQuiniela(VistaPrincipal vistaprincipal) {
+//
+//        this.vistaPrincipal = vistaprincipal;
+//        vistaprincipal.jButtonAdd.addActionListener(this);
+//        vistaprincipal.jButtonGuardar.addActionListener(this);
+//        modelTableQuiniela = new DefaultTableModel() {
+//
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                //all cells false
+//                return false;
+//            }
+//        };
+//        String[] columnNames = {"Local", "Visitante"};
+//        modelTableQuiniela.setColumnIdentifiers(columnNames);
+//
+//    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (e.getSource() == vistaPrincipal.jButtonAdd) {
+//            add();
+//        }
+//        if (e.getSource() == vistaPrincipal.jButtonGuardar) {
+//
+//            int userSelection = vistaPrincipal.jFileChooserGuardar.showSaveDialog(vistaPrincipal);
+//            if (userSelection == vistaPrincipal.jFileChooserGuardar.APPROVE_OPTION) {
+//                File fileToSave = vistaPrincipal.jFileChooserGuardar.getSelectedFile();
+//                System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
+//                String db =  fileToSave.getAbsolutePath()+".sqlite";
+//                conexionDao = new ConexionDao(db);
+//               
+//            }
+//
+//        }
+//    }
+//
+//    private void add() {
+//        modelTableQuiniela.addRow(new Object[]{vistaPrincipal.txtLocal.getText().trim(), vistaPrincipal.txtVisitante.getText().trim()});
+//        vistaPrincipal.jTableEquipos.setModel(modelTableQuiniela);
+//        vistaPrincipal.txtLocal.setText("");
+//        vistaPrincipal.txtVisitante.setText("");
+//    }
 }

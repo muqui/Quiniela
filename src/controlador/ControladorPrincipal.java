@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import vista.VistaP;
 
 import vista.VistaPrincipal;
 
@@ -23,43 +24,54 @@ import vista.VistaPrincipal;
  *
  * @author mq12
  */
-public class ControladorPrincipal implements ActionListener {
+public class ControladorPrincipal  {
+      VistaP vistaPrincipal;
+    
 
-   
-    VistaPrincipal vistaPrincipal;
-    DefaultTableModel modelTableQuiniela;
-
-    public ControladorPrincipal(VistaPrincipal principal) {
-       
-        
-        this.vistaPrincipal = principal;
-        principal.jButtonAdd.addActionListener(this);
-        principal.jButtonGuardar.addActionListener(this);
-       
-        modelTableQuiniela = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-        String[] columnNames = {"Local", "Visitante"};
-        modelTableQuiniela.setColumnIdentifiers(columnNames);
+    public ControladorPrincipal(VistaP vistaPrincipal) {
+        this.vistaPrincipal = vistaPrincipal;
     }
-
     public void iniciar() {
         vistaPrincipal.setVisible(true);
 
     }
+    
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == principal.jButtonAdd) {
-//            add();
-//        }
-       
-    }
+   
+//    VistaPrincipal vistaPrincipal;
+//    DefaultTableModel modelTableQuiniela;
+//
+//    public ControladorPrincipal(VistaPrincipal principal) {
+//       
+//        
+//        this.vistaPrincipal = principal;
+//        principal.jButtonAdd.addActionListener(this);
+//        principal.jButtonGuardar.addActionListener(this);
+//       
+//        modelTableQuiniela = new DefaultTableModel() {
+//
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                //all cells false
+//                return false;
+//            }
+//        };
+//        String[] columnNames = {"Local", "Visitante"};
+//        modelTableQuiniela.setColumnIdentifiers(columnNames);
+//    }
+//
+//    public void iniciar() {
+//        vistaPrincipal.setVisible(true);
+//
+//    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+////        if (e.getSource() == principal.jButtonAdd) {
+////            add();
+////        }
+//       
+//    }
 
     
 

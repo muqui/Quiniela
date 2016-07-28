@@ -5,8 +5,12 @@
  */
 package quinielasql;
 
+import controlador.ControladorAbrirQuiniela;
 import controlador.ControladorCrearQuiniela;
 import controlador.ControladorPrincipal;
+import vista.JPanelAbrirQuiniela;
+import vista.JPanelCrearQuiniela;
+import vista.VistaP;
 
 import vista.VistaPrincipal;
 
@@ -23,13 +27,14 @@ public class QuinielaSQL {
        //Modelo
         
         //Vista
-        VistaPrincipal Vistaprincipal = new VistaPrincipal();
-      
-                
-        
+       // VistaPrincipal Vistaprincipal = new VistaPrincipal();
+           VistaP vistaPrincipal = new VistaP();
+           JPanelCrearQuiniela jpanelCrearQuiniela = new JPanelCrearQuiniela();
+           JPanelAbrirQuiniela  jpanelAbrirQuiniela = new JPanelAbrirQuiniela();
         //controlador
-        ControladorPrincipal controladorPrincopal = new ControladorPrincipal(Vistaprincipal); 
-        ControladorCrearQuiniela controladorCrearQuiniela = new ControladorCrearQuiniela(Vistaprincipal);
+        ControladorPrincipal controladorPrincopal = new ControladorPrincipal(vistaPrincipal); 
+        ControladorCrearQuiniela controladorCrearQuiniela = new ControladorCrearQuiniela(vistaPrincipal, jpanelCrearQuiniela);
+        ControladorAbrirQuiniela ControladorAbrirQuiniela = new ControladorAbrirQuiniela(vistaPrincipal, jpanelAbrirQuiniela);
 //        ControladorCapturarResult ControladorJugar  = new ControladorCapturarResult(principal);
 //        ControladorGanadores controladorGanadores = new ControladorGanadores(principal);
         //Metodos
