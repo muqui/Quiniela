@@ -56,7 +56,7 @@ public class ControladorCrearQuiniela implements ActionListener {
             if (userSelection == vistaPrincipal.jFileChooserGuardar.APPROVE_OPTION) {
                 File fileToSave = vistaPrincipal.jFileChooserGuardar.getSelectedFile();
                 System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
-                String db =  fileToSave.getAbsolutePath();
+                String db =  fileToSave.getAbsolutePath()+".sqlite";
                 conexionDao = new ConexionDao(db);
                
             }
