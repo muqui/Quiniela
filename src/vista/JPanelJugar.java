@@ -9,12 +9,12 @@ package vista;
  *
  * @author mq12
  */
-public class JPanelAbrirQuiniela extends javax.swing.JPanel {
+public class JPanelJugar extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelAbrirQuiniela
      */
-    public JPanelAbrirQuiniela() {
+    public JPanelJugar() {
         initComponents();
         this.setVisible(false);
     }
@@ -30,9 +30,9 @@ public class JPanelAbrirQuiniela extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 0, 204));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Abirir Quiniela");
+        jLabel1.setText("Jugar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -41,7 +41,7 @@ public class JPanelAbrirQuiniela extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(160, 160, 160)
                 .addComponent(jLabel1)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

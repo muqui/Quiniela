@@ -6,6 +6,8 @@
 package controlador;
 
 import Dao.ConexionDao;
+import Modelo.Partido;
+import Modelo.Quiniela;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,11 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -26,16 +33,30 @@ import vista.VistaPrincipal;
  * @author mq12
  */
 public class ControladorCrearQuiniela implements ActionListener {
-
-    VistaP vistaPrincipal;
-    JPanelCrearQuiniela jpanelCrearQuiniela;
-    JPanelCrearQuiniela j;
-
+    private ConexionDao conexionDao;
+    private Quiniela quiniela;
+    private VistaP vistaPrincipal;
+    private JPanelCrearQuiniela jpanelCrearQuiniela;
+    private List<Partido> listaPaartidos;
+     DefaultTableModel modelTableQuiniela;
     public ControladorCrearQuiniela(VistaP vistaPrincipal, JPanelCrearQuiniela jpanelCrearQuiniela) {
         this.vistaPrincipal = vistaPrincipal;
         this.jpanelCrearQuiniela = jpanelCrearQuiniela;
         vistaPrincipal.jMenuItemCrearQuiniela.addActionListener(this);
-       
+        jpanelCrearQuiniela.jButtonGuardar.addActionListener(this);
+         jpanelCrearQuiniela.jButtonAdd.addActionListener(this);
+        modelTableQuiniela = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        String[] columnNames = {"Local", "Visitante"};
+        modelTableQuiniela.setColumnIdentifiers(columnNames);
+         this.listaPaartidos = new ArrayList<>();
+         quiniela = new Quiniela();
     }
 
     @Override
@@ -45,58 +66,62 @@ public class ControladorCrearQuiniela implements ActionListener {
            Container c = vistaPrincipal.getContentPane();
            c.removeAll();
             c.add(jpanelCrearQuiniela);
-           jpanelCrearQuiniela.setBounds(5, 5, 500, 500);
+           jpanelCrearQuiniela.setBounds(5, 5, 700, 600);
            jpanelCrearQuiniela.setVisible(true);
            c.repaint();
-//            add();
+
+        }
+        if (e.getSource() == jpanelCrearQuiniela.jButtonGuardar) {
+            int userSelection = vistaPrincipal.jFileChooserGuardar.showSaveDialog(vistaPrincipal);
+            if (userSelection == vistaPrincipal.jFileChooserGuardar.APPROVE_OPTION) {
+                try {
+                    File fileToSave = vistaPrincipal.jFileChooserGuardar.getSelectedFile();
+                    System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
+                    String db =  fileToSave.getAbsolutePath()+".sqlite";
+                    vistaPrincipal.setTitle(db);
+                    conexionDao = new ConexionDao(db);
+                    conexionDao.crearTablas();
+                    datosQuiniela();
+                    llenarLista();
+                    conexionDao.crearQuiniela(listaPaartidos, quiniela);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorCrearQuiniela.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+        if (e.getSource() == jpanelCrearQuiniela.jButtonAdd) {
+            add();
         }
     }
 
-//    private VistaPrincipal vistaPrincipal;
-//    private ConexionDao conexionDao;
-//    DefaultTableModel modelTableQuiniela;
-//
-//    public ControladorCrearQuiniela(VistaPrincipal vistaprincipal) {
-//
-//        this.vistaPrincipal = vistaprincipal;
-//        vistaprincipal.jButtonAdd.addActionListener(this);
-//        vistaprincipal.jButtonGuardar.addActionListener(this);
-//        modelTableQuiniela = new DefaultTableModel() {
-//
-//            @Override
-//            public boolean isCellEditable(int row, int column) {
-//                //all cells false
-//                return false;
-//            }
-//        };
-//        String[] columnNames = {"Local", "Visitante"};
-//        modelTableQuiniela.setColumnIdentifiers(columnNames);
-//
-//    }
-//
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == vistaPrincipal.jButtonAdd) {
-//            add();
-//        }
-//        if (e.getSource() == vistaPrincipal.jButtonGuardar) {
-//
-//            int userSelection = vistaPrincipal.jFileChooserGuardar.showSaveDialog(vistaPrincipal);
-//            if (userSelection == vistaPrincipal.jFileChooserGuardar.APPROVE_OPTION) {
-//                File fileToSave = vistaPrincipal.jFileChooserGuardar.getSelectedFile();
-//                System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
-//                String db =  fileToSave.getAbsolutePath()+".sqlite";
-//                conexionDao = new ConexionDao(db);
-//               
-//            }
-//
-//        }
-//    }
-//
-//    private void add() {
-//        modelTableQuiniela.addRow(new Object[]{vistaPrincipal.txtLocal.getText().trim(), vistaPrincipal.txtVisitante.getText().trim()});
-//        vistaPrincipal.jTableEquipos.setModel(modelTableQuiniela);
-//        vistaPrincipal.txtLocal.setText("");
-//        vistaPrincipal.txtVisitante.setText("");
-//    }
+    private void add() {
+        modelTableQuiniela.addRow(new Object[]{jpanelCrearQuiniela.txtLocal.getText().trim(), jpanelCrearQuiniela.txtVisitante.getText().trim()});
+        jpanelCrearQuiniela.jTableEquipos.setModel(modelTableQuiniela);
+        jpanelCrearQuiniela.txtLocal.setText("");
+        jpanelCrearQuiniela.txtVisitante.setText("");
+    }
+     private void llenarLista() {
+        for (int i = 0; i < modelTableQuiniela.getRowCount(); i++) {
+            String local = (String) modelTableQuiniela.getValueAt(i, 0);
+            String visita = (String) modelTableQuiniela.getValueAt(i, 1);
+            listaPaartidos.add(new Partido( "-", local, visita,0,0));
+        }
+    }
+
+    private void datosQuiniela() {
+        try {
+            SimpleDateFormat dateFormatFecha = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormatFechaDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String startDateString = dateFormatFecha.format(jpanelCrearQuiniela.jDateChooserFecga.getDate());
+            String fechaLimite = startDateString+" "+ jpanelCrearQuiniela.jComboBoxHora.getSelectedItem()+":"+jpanelCrearQuiniela.jComboBoxMinitos.getSelectedItem()+":00";
+            dateFormatFecha.format(jpanelCrearQuiniela.jDateChooserFecga.getDate());
+            Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaLimite);
+            quiniela.setNombre(jpanelCrearQuiniela.txtNombreQuiniela.getText());
+            quiniela.setFechaLimite(d);
+            System.out.println("Quiniela nonbre " + quiniela.getNombre() + "  fecha limite  " + quiniela.getFechaLimite());
+        } catch (ParseException ex) {
+            Logger.getLogger(ControladorCrearQuiniela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

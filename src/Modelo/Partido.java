@@ -15,10 +15,20 @@ public class Partido {
     private String resultado;
     private String local;
     private String visitante;
-    private int quiniela_idquiniela;
+    //private int quiniela_idquiniela;
     private int golesLocal;
     private int golesVisita;
-
+    public Partido(){
+    
+    }
+      public Partido( String resultado, String local, String visitante, int golesLocal, int golesVisita ) {
+      
+       this.resultado = resultado;
+       this.local = local;
+       this.visitante = visitante;
+       this.golesLocal = golesLocal;
+       this.golesVisita = golesVisita;
+    }
     /**
      * @return the idpartidos
      */
@@ -75,19 +85,7 @@ public class Partido {
         this.visitante = visitante;
     }
 
-    /**
-     * @return the quiniela_idquiniela
-     */
-    public int getQuiniela_idquiniela() {
-        return quiniela_idquiniela;
-    }
-
-    /**
-     * @param quiniela_idquiniela the quiniela_idquiniela to set
-     */
-    public void setQuiniela_idquiniela(int quiniela_idquiniela) {
-        this.quiniela_idquiniela = quiniela_idquiniela;
-    }
+   
 
     /**
      * @return the golesLocal

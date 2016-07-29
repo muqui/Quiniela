@@ -5,17 +5,40 @@
  */
 package vista;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+
 /**
  *
  * @author mq12
  */
 public class VistaP extends javax.swing.JFrame {
-
+ public String db;
     /**
      * Creates new form VistaP
      */
     public VistaP() {
+              try
+{
+
+    JFrame.setDefaultLookAndFeelDecorated(true);
+
+    JDialog.setDefaultLookAndFeelDecorated(true);
+
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+}
+
+catch (Exception e)
+
+{
+
+    e.printStackTrace();
+
+}
         initComponents();
+        
     }
 
     /**
@@ -27,6 +50,8 @@ public class VistaP extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooserGuardar = new javax.swing.JFileChooser();
+        jFileChooserAbrir = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -36,21 +61,24 @@ public class VistaP extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItemJugar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
+        jFileChooserGuardar.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");
@@ -74,8 +102,8 @@ public class VistaP extends javax.swing.JFrame {
         jMenuItem5.setText("resultados");
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setText("Jugar");
-        jMenu2.add(jMenuItem6);
+        jMenuItemJugar.setText("Jugar");
+        jMenu2.add(jMenuItemJugar);
 
         jMenuBar1.add(jMenu2);
 
@@ -92,13 +120,13 @@ public class VistaP extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -140,6 +168,8 @@ public class VistaP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JFileChooser jFileChooserAbrir;
+    public javax.swing.JFileChooser jFileChooserGuardar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -147,10 +177,10 @@ public class VistaP extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     public javax.swing.JMenuItem jMenuItemAbirrQuiniela;
     public javax.swing.JMenuItem jMenuItemCrearQuiniela;
+    public javax.swing.JMenuItem jMenuItemJugar;
     public javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

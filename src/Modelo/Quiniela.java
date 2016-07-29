@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class Quiniela {
     private int id;
     private String nombre;
-    private Timestamp fechaLimite;
+    private Date fechaLimite;
     private List<Partido> personList = new LinkedList<Partido>();
 
     /**
@@ -47,19 +48,9 @@ public class Quiniela {
         this.nombre = nombre;
     }
 
-    /**
-     * @return the fechaLimite
-     */
-    public Timestamp getFechaLimite() {
-        return fechaLimite;
-    }
+   
 
-    /**
-     * @param fechaLimite the fechaLimite to set
-     */
-    public void setFechaLimite(Timestamp fechaLimite) {
-        this.fechaLimite = fechaLimite;
-    }
+    
 
     /**
      * @return the personList
@@ -73,5 +64,19 @@ public class Quiniela {
      */
     public void setPersonList(List<Partido> personList) {
         this.personList = personList;
+    }
+
+    /**
+     * @return the fechaLimite
+     */
+    public Date getFechaLimite() {
+        return fechaLimite;
+    }
+
+    /**
+     * @param fechaLimite the fechaLimite to set
+     */
+    public void setFechaLimite(Date fechaLimite) {
+        this.fechaLimite = fechaLimite;
     }
 }

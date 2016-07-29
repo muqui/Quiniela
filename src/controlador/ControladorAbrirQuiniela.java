@@ -5,10 +5,12 @@
  */
 package controlador;
 
+import Dao.ConexionDao;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import vista.JPanelAbrirQuiniela;
+import java.io.File;
+import vista.JPanelJugar;
 import vista.VistaP;
 
 /**
@@ -18,11 +20,9 @@ import vista.VistaP;
 public class ControladorAbrirQuiniela implements ActionListener {
 
     VistaP vistaPrincipal;
-    JPanelAbrirQuiniela jpanelAbrirQuiniela;
-
-    public ControladorAbrirQuiniela(VistaP vistaPrincipal, JPanelAbrirQuiniela jpanelAbrirQuiniela) {
+      private ConexionDao conexionDao;
+    public ControladorAbrirQuiniela(VistaP vistaPrincipal) {
         this.vistaPrincipal = vistaPrincipal;
-        this.jpanelAbrirQuiniela = jpanelAbrirQuiniela;
          vistaPrincipal.jMenuItemAbirrQuiniela.addActionListener(this);
     }
 
@@ -30,13 +30,23 @@ public class ControladorAbrirQuiniela implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vistaPrincipal.jMenuItemAbirrQuiniela) {
             System.out.println("Abrir  Quiniela");
-           Container c = vistaPrincipal.getContentPane();
-           c.removeAll();
-            c.add(jpanelAbrirQuiniela);
-           jpanelAbrirQuiniela.setBounds(5, 5, 500, 500);
-           jpanelAbrirQuiniela.setVisible(true);
-          c.repaint();
-//            add();
+             int userSelection = vistaPrincipal.jFileChooserAbrir.showOpenDialog(vistaPrincipal);
+            if (userSelection == vistaPrincipal.jFileChooserAbrir.APPROVE_OPTION) {
+                File fileToSave = vistaPrincipal.jFileChooserAbrir.getSelectedFile();
+                System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
+                String db =  fileToSave.getAbsolutePath();
+                vistaPrincipal.setTitle(db);
+                vistaPrincipal.db = db;
+                conexionDao = new ConexionDao(db);
+                
+            }
+//           Container c = vistaPrincipal.getContentPane();
+//           c.removeAll();
+//            c.add(jpanelAbrirQuiniela);
+//           jpanelAbrirQuiniela.setBounds(5, 5, 500, 500);
+//           jpanelAbrirQuiniela.setVisible(true);
+//          c.repaint();
+
         }
     }
 

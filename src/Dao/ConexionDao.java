@@ -82,11 +82,11 @@ public class ConexionDao {
 
     public void crearQuiniela(List<Partido> listaPaartidos, Quiniela quiniela) {
         quinielaNombre(quiniela);
-        
+
         Iterator iter = listaPaartidos.iterator();
 
         while (iter.hasNext()) {
-        Partido  partido = (Partido) iter.next();
+            Partido partido = (Partido) iter.next();
             guardarPartidos(partido);
             System.out.println("" + partido);
 
@@ -98,8 +98,8 @@ public class ConexionDao {
             String sql = "INSERT INTO quiniela (name,fechalimite) "
                     + "VALUES ('" + quiniela.getNombre() + "', '" + quiniela.getFechaLimite() + "' );";
             statement = connection.createStatement();
-            statement.executeUpdate(sql);  
-           // connection.close();
+            statement.executeUpdate(sql);
+            // connection.close();
         } catch (SQLException ex) {
             System.err.println("muqui error personal" + ex.getMessage());
         }
@@ -114,29 +114,46 @@ public class ConexionDao {
             statement = connection.createStatement();
 
             statement.executeUpdate(sql);
-           // connection.close();
+            // connection.close();
         } catch (SQLException ex) {
             System.err.println("muqui error personal" + ex.getMessage());
         }
 
     }
-    public List<Partido> partidos(){
+
+    public List<Partido> partidos() {
+        List<Partido> partidos = new ArrayList<>();
         try {
-            List <Partido> partidos = new ArrayList<>();
+
             statement = connection.createStatement();
-             resultSet = statement.executeQuery("SELECT * FROM partidos");
-           while ( resultSet.next() ) {
-               Partido partido = new Partido();
-         int id = resultSet.getInt("id");
-        
-         System.out.println( "ID = " + id );
-        
-         System.out.println();
-      } 
+            resultSet = statement.executeQuery("SELECT * FROM partidos");
+            while (resultSet.next()) {
+                Partido partido = new Partido();
+                partido.setIdpartidos(resultSet.getInt("id"));
+                partido.setLocal(resultSet.getString("local"));
+                partido.setVisitante(resultSet.getString("visitante"));
+                partido.setResultado(resultSet.getString("resultado"));
+                partido.setGolesLocal(0);
+                partido.setGolesVisita(0);
+
+                partidos.add(partido);
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        
+        
+        Iterator iter = partidos.iterator();
+
+        while (iter.hasNext()) {
+             Partido partido =(Partido) iter.next();
+             
+            System.out.println("ID = " + partido.getIdpartidos() + " local = " + partido.getLocal() +  " visitante = " +  partido.getVisitante());
+
+        }
+
+        return partidos;
     }
 
 }
