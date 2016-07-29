@@ -5,12 +5,17 @@
  */
 package Dao;
 
+import Modelo.Partido;
+import Modelo.Quiniela;
 import com.sun.javafx.fxml.BeanAdapter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -70,6 +75,47 @@ public class ConexionDao {
                 + ")";
         statement = connection.createStatement();
         statement.execute(resultadosjugador);
-        connection.close();
+        // connection.close();
+    }
+
+    public void crearQuiniela(List<Partido> listaPaartidos, Quiniela quiniela) {
+        quinielaNombre(quiniela);
+        
+        Iterator iter = listaPaartidos.iterator();
+
+        while (iter.hasNext()) {
+        Partido  partido = (Partido) iter.next();
+            guardarPartidos(partido);
+            System.out.println("" + partido);
+
+        }
+    }
+
+    public void quinielaNombre(Quiniela quiniela) {
+        try {
+            String sql = "INSERT INTO quiniela (name,fechalimite) "
+                    + "VALUES ('" + quiniela.getNombre() + "', '" + quiniela.getFechaLimite() + "' );";
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);  
+           // connection.close();
+        } catch (SQLException ex) {
+            System.err.println("muqui error personal" + ex.getMessage());
+        }
+
+    }
+
+    public void guardarPartidos(Partido partido) {
+        try {
+            String sql = "INSERT INTO partidos (resultado,local,visitante,goleslocal,golesvisita) "
+                    + "VALUES ('" + partido.getResultado() + "', '" + partido.getLocal() + "','" + partido.getVisitante() + "'," + partido.getGolesLocal() + "," + partido.getGolesVisita() + " );";
+            System.out.println("sql " + sql);
+            statement = connection.createStatement();
+
+            statement.executeUpdate(sql);
+           // connection.close();
+        } catch (SQLException ex) {
+            System.err.println("muqui error personal" + ex.getMessage());
+        }
+
     }
 }
