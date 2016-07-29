@@ -14,8 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +38,6 @@ public class ConexionDao {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + this.db);
             System.out.println("Conectado a la base de datos SQLite [ " + this.db + "]");
-            crearTablas();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -118,4 +120,23 @@ public class ConexionDao {
         }
 
     }
+    public List<Partido> partidos(){
+        try {
+            List <Partido> partidos = new ArrayList<>();
+            statement = connection.createStatement();
+             resultSet = statement.executeQuery("SELECT * FROM partidos");
+           while ( resultSet.next() ) {
+               Partido partido = new Partido();
+         int id = resultSet.getInt("id");
+        
+         System.out.println( "ID = " + id );
+        
+         System.out.println();
+      } 
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
+
 }
