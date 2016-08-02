@@ -79,7 +79,8 @@ public class ControladorCrearQuiniela implements ActionListener {
                     System.out.println("Save as fil e: " + fileToSave.getAbsolutePath());
                     String db =  fileToSave.getAbsolutePath()+".sqlite";
                     vistaPrincipal.setTitle(db);
-                    conexionDao = new ConexionDao(db);
+                    conexionDao = new ConexionDao();
+                    conexionDao.getConeccion(db);
                     conexionDao.crearTablas();
                     datosQuiniela();
                     llenarLista();

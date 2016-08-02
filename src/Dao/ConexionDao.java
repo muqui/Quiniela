@@ -5,8 +5,10 @@
  */
 package Dao;
 
+import Modelo.Jugador;
 import Modelo.Partido;
 import Modelo.Quiniela;
+import Modelo.ResultadosJugador;
 import com.sun.javafx.fxml.BeanAdapter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,7 +34,11 @@ public class ConexionDao {
     private String db;
 
 //Constructor de clase que se conecta a la base de datos SQLite 
-    public ConexionDao(String db) {
+    public ConexionDao() {
+
+    }
+
+    public void getConeccion(String db) {
         this.db = db;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -41,7 +47,6 @@ public class ConexionDao {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public void crearTablas() throws SQLException {
@@ -121,6 +126,59 @@ public class ConexionDao {
 
     }
 
+    public void guardarJugador(Jugador jugador) {
+        try {
+            String sql = "INSERT INTO jugador (nombre,codigo,aciertos) "
+                    + "VALUES ('" + jugador.getNombre() + "', '" + jugador.getCodigo() + "'," + jugador.getAciertos() + " );";
+            System.out.println("sql " + sql);
+            statement = connection.createStatement();
+
+            statement.executeUpdate(sql);
+            // connection.close();
+        } catch (SQLException ex) {
+            System.err.println("muqui error personal" + ex.getMessage());
+        }
+
+    }
+
+    public void ResultadosJugador(ResultadosJugador resultadosJugador) {
+        String sql =  "SELECT * FROM jugador where nombre = '" + resultadosJugador.getNombreJugador() + "'";
+        Jugador jugador = getJugador(sql);
+        try {
+             sql = "INSERT INTO resultadosJugador (resultado,idjugador,idpartido) "
+                    + "VALUES ('" + resultadosJugador.getResultado() + "', " + jugador.getId() + "," + resultadosJugador.getIdPartido() + " );";
+            System.out.println("sql " + sql);
+            statement = connection.createStatement();
+
+            statement.executeUpdate(sql);
+            // connection.close();
+        } catch (SQLException ex) {
+            System.err.println("muqui error personal" + ex.getMessage());
+        }
+
+    }
+
+    public Jugador getJugador(String sql) {
+       
+        Jugador jugador = new Jugador();
+        try {
+
+            statement = connection.createStatement();
+            System.out.println("seleccionar sql JUGADOR = " + sql);
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                jugador.setId(resultSet.getInt("id"));
+                jugador.setNombre(resultSet.getString("nombre"));
+                jugador.setCodigo(resultSet.getString("codigo"));
+                jugador.setAciertos(resultSet.getInt("aciertos"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return jugador;
+    }
+
     public List<Partido> partidos() {
         List<Partido> partidos = new ArrayList<>();
         try {
@@ -142,14 +200,13 @@ public class ConexionDao {
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         Iterator iter = partidos.iterator();
 
         while (iter.hasNext()) {
-             Partido partido =(Partido) iter.next();
-             
-            System.out.println("ID = " + partido.getIdpartidos() + " local = " + partido.getLocal() +  " visitante = " +  partido.getVisitante());
+            Partido partido = (Partido) iter.next();
+
+            System.out.println("ID = " + partido.getIdpartidos() + " local = " + partido.getLocal() + " visitante = " + partido.getVisitante());
 
         }
 

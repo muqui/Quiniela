@@ -37,8 +37,8 @@ public class ControladorAbrirQuiniela implements ActionListener {
                 String db =  fileToSave.getAbsolutePath();
                 vistaPrincipal.setTitle(db);
                 vistaPrincipal.db = db;
-                conexionDao = new ConexionDao(db);
-                
+                conexionDao = new ConexionDao();
+                conexionDao.getConeccion(db);
             }
 //           Container c = vistaPrincipal.getContentPane();
 //           c.removeAll();
